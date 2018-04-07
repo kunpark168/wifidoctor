@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WiFi Doctor</string>
+    <string name="wifi_doctor">WiFi Doctor</string>
+    <string name="detect">Detect</string>
+    <string name="boost">Boost</string>
+    <string name="open_wifi">Open WiFi</string>
+    <string name="no_network">No network connection</string>
+</resources>

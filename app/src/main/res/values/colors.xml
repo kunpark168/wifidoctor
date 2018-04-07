@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#18abd2</color>
+    <color name="colorPrimaryDark">#00c28d</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="color_status_bar">#00c28d</color>
+    <color name="color_text">#06be8a</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_blue_gradien">#18abd2</color>
+    <color name="color_ripple">#8906be8a</color>
+    <color name="color_unactive">#98e6d0</color>
+    <color name="color_status_splash">#1dd776</color>
+</resources>
+
