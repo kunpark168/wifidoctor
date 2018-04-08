@@ -1,0 +1,99 @@
+<com.google.android.gms.ads.formats.NativeAppInstallAdView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_app_install"
+    android:layout_height="@dimen/dp100"
+    android:layout_margin="@dimen/dp15"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:minHeight="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="10"
+                android:layout_marginBottom="@dimen/dp10"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/appinstall_app_icon2"
+                    android:layout_marginLeft="@dimen/dp10"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp70"
+                    android:adjustViewBounds="true"
+                    android:paddingBottom="5dp" />
+
+                <LinearLayout
+                    android:layout_weight="5"
+                    android:layout_width="0dp"
+                    android:weightSum="2"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:id="@+id/appinstall_headline2"
+                        android:paddingRight="@dimen/dp10"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/sp16"
+                        android:layout_marginLeft="@dimen/dp10" />
+
+                    <TextView
+                        android:id="@+id/appinstall_body2"
+                        android:gravity="center_vertical"
+                        android:maxLines="2"
+                        android:paddingRight="@dimen/dp10"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/dp10"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="@dimen/sp13" />
+                </LinearLayout>
+                <!-- Button Install -->
+                <LinearLayout
+                    android:layout_weight="3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dp10"
+                    android:paddingTop="@dimen/dp10">
+
+
+                    <Button
+                        android:id="@+id/appinstall_call_to_action2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="INSTALL"
+                        android:layout_marginRight="@dimen/dp15"
+                        android:background="@color/color_status_bar"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/sp15" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginLeft="@dimen/dp10"
+            style="@style/AppTheme.AdAttribution" />
+    </FrameLayout>
+</com.google.android.gms.ads.formats.NativeAppInstallAdView>

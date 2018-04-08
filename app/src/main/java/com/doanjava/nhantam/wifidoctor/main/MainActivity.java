@@ -1,36 +1,138 @@
 package com.doanjava.nhantam.wifidoctor.main;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.TextUtils;
+import android.text.format.Formatter;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.doanjava.nhantam.wifidoctor.R;
+import com.doanjava.nhantam.wifidoctor.Utils.Constans;
+import com.doanjava.nhantam.wifidoctor.Utils.PreferenceManager;
 import com.doanjava.nhantam.wifidoctor.broadcast.NetworkReceiver;
+import com.doanjava.nhantam.wifidoctor.devices_connected.DeviceConnectedActivity;
+import com.doanjava.nhantam.wifidoctor.more.MoreActivity;
+import com.doanjava.nhantam.wifidoctor.network.ClientScanResult;
 import com.skyfishjy.library.RippleBackground;
+import java.lang.ref.WeakReference;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RippleBackground ripple;
     private ImageView imgCircleGrandient, imgBoost, imgDetect;
-    private TextView txtNetwork, txtOpenWifi, txtCountAppsConnected, txtLastDetect, txtDetect, txtBoost;
+    private TextView txtNetwork, txtOpenWifi, txtCountAppsConnected, txtLastDetect, txtDetect, txtBoost, txtCountDeviceConnected;
     private FrameLayout layoutDeviceConnected;
     private NetworkReceiver receiver;
+    private ImageView rippleMore;
+    private ArrayList<ClientScanResult> arrDevice;
+    private String nameWifi, deviceIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        getApplicationsRunningOnBackground();
+    }
+
+    private void getApplicationsRunningOnBackground() {
+        /*ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> procInfos = activityManager
+                .getRunningAppProcesses();
+        List<ActivityManager.RunningTaskInfo> runningTaskInfo = activityManager.getRunningTasks(10);
+
+        ComponentName componentInfo = runningTaskInfo.get(0).topActivity;
+        for (int idx = 0; idx < procInfos.size(); idx++) {
+            Toast.makeText(this, procInfos.get(idx).processName + "\n", Toast.LENGTH_SHORT).show();
+        }*/
+        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        List<ResolveInfo> pkgAppsList = getApplicationContext().getPackageManager().queryIntentActivities(mainIntent, 0);
+
+
+        List<ApplicationInfo> appss = getPackageManager().getInstalledApplications(0);
+        List<ApplicationInfo> appssa = new ArrayList<>();
+        for(ApplicationInfo app : appss) {
+            if((app.flags & (ApplicationInfo.FLAG_UPDATED_SYSTEM_APP | ApplicationInfo.FLAG_SYSTEM)) > 0) {
+                // It is a system app
+            } else {
+                // It is installed by the user
+                appssa.add(app);
+            }
+        }
+        Log.d("aa", appssa + "");
+
+        isAppIsInBackground(this);
+        ArrayList<String> packageNames = new ArrayList<String>();
+        PackageManager p = getPackageManager();
+        final List<PackageInfo> apps = p.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        for (PackageInfo packageInfo : apps) {
+            if (packageInfo.requestedPermissions == null || isSystemPackage(packageInfo))
+                continue;
+            for (String permission : packageInfo.requestedPermissions) {
+                if (TextUtils.equals(permission, android.Manifest.permission.INTERNET)) {
+                    packageNames.add(packageInfo.packageName);
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private boolean isSystemPackage(PackageInfo pkgInfo) {
+        return ((pkgInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) ? true
+                : false;
+    }
+
+    private boolean isAppIsInBackground(Context context) {
+        boolean isInBackground = true;
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT_WATCH) {
+            List<ActivityManager.RunningAppProcessInfo> runningProcesses = am.getRunningAppProcesses();
+            for (ActivityManager.RunningAppProcessInfo processInfo : runningProcesses) {
+                if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    for (String activeProcess : processInfo.pkgList) {
+                        if (activeProcess.equals(context.getPackageName())) {
+                            isInBackground = false;
+                        }
+                    }
+                }
+            }
+        } else {
+            List<ActivityManager.RunningTaskInfo> taskInfo = am.getRunningTasks(1);
+            ComponentName componentInfo = taskInfo.get(0).topActivity;
+            if (componentInfo.getPackageName().equals(context.getPackageName())) {
+                isInBackground = false;
+            }
+        }
+
+        return isInBackground;
     }
 
     private void initView() {
@@ -44,9 +146,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imgDetect = findViewById(R.id.imgDetect);
         txtDetect = findViewById(R.id.txtDetect);
         txtBoost = findViewById(R.id.txtBoost);
+        rippleMore = findViewById(R.id.rippleMore);
         layoutDeviceConnected = findViewById(R.id.layoutDeviceConnected);
+        txtCountDeviceConnected= findViewById(R.id.txtCountDeviceConnected);
+
+        arrDevice = new ArrayList<>();
 
         receiver = new NetworkReceiver(this);
+        rippleMore.setOnClickListener(this);
+        txtCountDeviceConnected.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (wifiManager.isWifiEnabled())
             onNetworkchange(true);
         else onNetworkchange(false);
+        new NetworkSniffTask(MainActivity.this).execute();
 
     }
 
@@ -87,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             txtOpenWifi.setOnClickListener(null);
             getWifiInfo();
         } else {
+            arrDevice.clear();
             ripple.stopRippleAnimation();
             imgCircleGrandient.setImageResource(R.drawable.circle_disconnect);
             txtNetwork.setText(getResources().getString(R.string.no_network));
@@ -108,9 +218,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WifiManager wifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         WifiInfo myWifi = wifiManager.getConnectionInfo();
         if (myWifi != null && !myWifi.getSSID().equals("")) {
-            String nameWifi = myWifi.getSSID().replace("\"", "");
+            nameWifi = myWifi.getSSID().replace("\"", "");
             txtNetwork.setText(nameWifi);
+            deviceIp = Formatter.formatIpAddress(myWifi.getIpAddress());
         }
+
     }
 
     @Override
@@ -119,6 +231,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.txtOpenWifi:
                 enableMyWifi();
+                break;
+            case R.id.rippleMore:
+                ripple.stopRippleAnimation();
+                startActivity(new Intent(MainActivity.this, MoreActivity.class));
+                break;
+            case R.id.txtCountDeviceConnected :
+                Intent intent = new Intent(MainActivity.this, DeviceConnectedActivity.class);
+                intent.putExtra(Constans.WIFI_NAME, nameWifi);
+                startActivity(intent);
                 break;
         }
     }
@@ -131,4 +252,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             txtOpenWifi.setOnClickListener(null);
         }
     }
+
+    private class NetworkSniffTask extends AsyncTask<Void, Void, ArrayList<ClientScanResult>> {
+
+        private static final String TAG = "nstask";
+
+        private WeakReference<Context> mContextRef;
+
+        public NetworkSniffTask(Context context) {
+            mContextRef = new WeakReference<Context>(context);
+        }
+
+        @Override
+        protected ArrayList<ClientScanResult> doInBackground(Void... voids) {
+            Log.d(TAG, "Let's sniff the network");
+            try {
+                Context context = mContextRef.get();
+                arrDevice.clear();
+                if (context != null) {
+                    ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                    WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    WifiInfo connectionInfo = wm.getConnectionInfo();
+                    int ipAddress = connectionInfo.getIpAddress();
+                    String ipString = Formatter.formatIpAddress(ipAddress);
+                    Log.d(TAG, "activeNetwork: " + String.valueOf(activeNetwork));
+                    Log.d(TAG, "ipString: " + String.valueOf(ipString));
+
+                    String prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1);
+                    Log.d(TAG, "prefix: " + prefix);
+
+                    for (int i = 0; i < 255; i++) {
+                        String testIp = prefix + String.valueOf(i);
+                        InetAddress address = InetAddress.getByName(testIp);
+                        String hostName = address.getCanonicalHostName();
+                        if (!hostName.equals(testIp)){
+                            boolean reachable = address.isReachable(1000);
+                            if (reachable) {
+                                if (testIp.equals(deviceIp))
+                                    arrDevice.add(new ClientScanResult(testIp, "My Device", false));
+                                else
+                                    arrDevice.add(new ClientScanResult(testIp, hostName, false));
+                            }
+                        }
+                    }
+                }
+            } catch (Throwable t) {
+                Log.e(TAG, "Well that's not good.", t);
+            }
+            return arrDevice;
+
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ClientScanResult> clientScanResults) {
+            super.onPostExecute(clientScanResults);
+            String text = arrDevice.size() + " devices are sharing network";
+            txtCountDeviceConnected.setText(text);
+            PreferenceManager.getInstance(MainActivity.this).setDeviceList(clientScanResults);
+        }
+    }
 }
+
+

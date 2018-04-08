@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="12"
+    tools:context="com.doanjava.nhantam.wifidoctor.more.MoreActivity">
+    <LinearLayout
+        android:background="@color/color_status_bar"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ImageView
+            android:id="@+id/rippleBackMore"
+            android:padding="@dimen/dp15"
+            android:src="@drawable/ic_back"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="match_parent" />
+        <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+            android:gravity="center_vertical"
+            app:fontTypeFaceName="Lato-Regular.ttf"
+            android:textSize="@dimen/sp18"
+            android:textColor="@color/color_white"
+            android:text="@string/more"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp10"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:id="@+id/rippleSettings"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:padding="@dimen/dp15"
+                    android:src="@drawable/ic_setting"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="match_parent" />
+                <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+                    android:textColor="@android:color/black"
+                    app:fontTypeFaceName="Lato-Regular.ttf"
+                    android:textSize="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:text="@string/settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rippleRate"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:padding="@dimen/dp15"
+                    android:src="@drawable/ic_star"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="match_parent" />
+                <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp15"
+                    app:fontTypeFaceName="Lato-Regular.ttf"
+                    android:gravity="center_vertical"
+                    android:text="@string/rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:id="@+id/rippleShare"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:padding="@dimen/dp15"
+                    android:src="@drawable/ic_share"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="match_parent" />
+                <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/sp15"
+                    app:fontTypeFaceName="Lato-Regular.ttf"
+                    android:gravity="center_vertical"
+                    android:text="@string/share"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rippleFeedBack"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:padding="@dimen/dp15"
+                    android:src="@drawable/ic_feedback"
+                    android:layout_width="@dimen/dp50"
+                    android:layout_height="match_parent" />
+                <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+                    android:textColor="@android:color/black"
+                    app:fontTypeFaceName="Lato-Regular.ttf"
+                    android:textSize="@dimen/sp15"
+                    android:gravity="center_vertical"
+                    android:text="@string/feed_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <FrameLayout
+        android:layout_gravity="top|center_horizontal"
+        android:id="@+id/layoutAdsMore"
+        android:layout_weight="7.5"
+        android:layout_margin="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:indeterminateTint="@color/color_status_bar"
+            android:backgroundTint="@color/color_status_bar"
+            android:layout_marginTop="@dimen/sp20"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</LinearLayout>

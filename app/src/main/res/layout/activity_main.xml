@@ -24,27 +24,20 @@
             android:text="@string/wifi_doctor"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <com.andexert.library.RippleView
+        <ImageView
+            android:id="@+id/rippleMore"
+            android:padding="@dimen/dp15"
             android:layout_gravity="right"
+            android:src="@drawable/ic_option_menu"
             android:layout_width="@dimen/dp50"
-            android:layout_height="match_parent">
-            <ImageView
-                android:padding="@dimen/dp15"
-                android:src="@drawable/ic_option_menu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.andexert.library.RippleView>
-        <com.andexert.library.RippleView
+            android:layout_height="match_parent" />
+        <ImageView
+            android:padding="@dimen/dp10"
+            android:layout_gravity="right"
             android:layout_marginRight="@dimen/dp50"
-            android:layout_gravity="right"
+            android:src="@drawable/ic_gift_ads"
             android:layout_width="@dimen/dp50"
-            android:layout_height="match_parent">
-            <ImageView
-                android:padding="@dimen/dp8"
-                android:src="@drawable/ic_gift_ads"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.andexert.library.RippleView>
+            android:layout_height="match_parent" />
     </FrameLayout>
     <!-- Body 6 -->
     <FrameLayout
@@ -119,11 +112,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <com.doanjava.nhantam.wifidoctor.custom.WDTextView
+                            android:id="@+id/txtCountDeviceConnected"
                             app:fontTypeFaceName="Lato-Regular.ttf"
                             android:textColor="@color/color_text"
                             android:textSize="@dimen/sp15"
                             android:gravity="center_horizontal"
-                            android:text="3 devices are sharing network"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
                     </FrameLayout>

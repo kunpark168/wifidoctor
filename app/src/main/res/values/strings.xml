@@ -5,4 +5,29 @@
     <string name="boost">Boost</string>
     <string name="open_wifi">Open WiFi</string>
     <string name="no_network">No network connection</string>
+    <string name="more">More</string>
+    <string name="settings">Settings</string>
+    <string name="rate">Rate</string>
+    <string name="share">Share</string>
+    <string name="feed_back">Feedback</string>
+    <string name="ad_attribution">Ad</string>
+    <string name="subject_feedback">Feedback for WiFi Doctor</string>
+    <string name="message_feedback">Please describe your problem as detailed as possible, and we will try to fix if as fast as we can, Thanks you for your feedback!</string>
+    <string name="realtime_protection">Real-time protection</string>
+    <string name="wif_detection_remainder">WiFi detection remainder</string>
+    <string name="wifi_boost_remainder">WiFi boost remainder</string>
+    <string name="weather_notification">Weather notification</string>
+    <string name="supper_boost">Super boost</string>
+    <string name="language">Language</string>
+    <string name="update">Update</string>
+    <string name="about">About</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="remainder_change_password">Please change your password once you find unknow devices in the list</string>
+    <string name="network_boost">Network Boost</string>
+
+    <string name="ADMOB_AD_UNIT_ID">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="ADMOB_APP_ID">ca-app-pub-2799565885814767~9855542369</string>
+    //ca-app-pub-2799565885814767~8088285656
+    <string name="AD_INTERSTITIAL_ID">ca-app-pub-3940256099942544/1033173712</string>
 </resources>

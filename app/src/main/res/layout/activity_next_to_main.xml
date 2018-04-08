@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
+    tools:context="com.doanjava.nhantam.wifidoctor.splash.NextToMainActivity">
+
+    <FrameLayout
+        android:background="@color/color_status_bar"
+        android:layout_weight="4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginRight="@dimen/dp20"
+            android:layout_gravity="right"
+            android:padding="@dimen/dp17"
+            android:src="@drawable/ic_close"
+            android:layout_width="@dimen/dp50"
+            android:layout_height="@dimen/dp50" />
+        <ImageView
+            android:src="@drawable/logo_white"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="@dimen/dp100" />
+        <TextView
+            android:layout_marginTop="@dimen/dp70"
+            android:layout_gravity="center"
+            android:textSize="@dimen/sp20"
+            android:textColor="@color/color_white"
+            android:text="@string/wifi_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutAdsNext"
+        android:layout_weight="6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+    </FrameLayout>
+</LinearLayout>
